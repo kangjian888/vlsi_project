@@ -78,7 +78,7 @@ end
 // remainder register and divisor register (subtract)
 // ----------------------------------------------------
 // TODO: place your code here
-assign alu_result = 0;
+assign alu_result = remainder_reg[2*N : N] - divisor_reg;
 
 // ----------------------------------------------------
 // Part III: next state logic (combinational logic)
@@ -95,14 +95,17 @@ always @(*) begin
         if (divisor == 0) begin
           // next state transfers to STATE_DIV_BY_ZERO
           // TODO: place your code here
-
+          state_next = STATE_DIV_BY_ZERO;
         end else begin
           // next state transfers to STATE_DIV_ON
           // store the divisor to the register
           // store the dividend to the register
           // reset the counter during STATE_DIV_ON
           // TODO: place your code here
-          
+          state_next = STATE_DIV_ON;
+          divisor_next = divisor;
+          remainder_next = {0,dividend};
+          cnt_next = 0;
         end
       end
     end
@@ -110,29 +113,42 @@ always @(*) begin
     STATE_DIV_BY_ZERO: begin
       // next state transfers to STATE_IDLE
       // TODO: place your code here
-      
+      state_next = STATE_IDLE;
     end
 
     STATE_DIV_ON: begin
       // counter to track the division progress: increment each cycle
       // TODO: place your code here
-       
+       cnt_next = cnt_reg + 1'b1;
       // next state transfers to STATE_DIV_DONE after N iterations
       // TODO: place your code here
-
-
+      if(cnt_next == N+1)
+      	  begin
+      		state_next = STATE_DIV_DONE;
+      	  end
+      else 
+          begin
+            state_next = STATE_DIV_ON; 
+          end
       // remainder register next value
       // - alu_result < 0: shift 1'b0 into remainder register
       // - alu_result >= 0: update MSB of remainder register with alu_result
       //   and shift 1'b1 into remainder register
       // TODO: place your code here
-
+      if(alu_result[N] == 1)
+      	  begin
+      	  	remainder_next = remainder_reg << 1;
+      	  end
+      else 
+          begin
+            remainder_next = ({alu_result,remainder_reg[N-1:0]} << 1) + 1;
+          end
     end
 
     STATE_DIV_DONE: begin
       // next state transfers to STATE_IDLE
       // TODO: place your code here
-      
+      state_next = STATE_IDLE;
     end
   endcase
 end
@@ -143,19 +159,21 @@ end
 // ----------------------------------------------------
 // assert done when divided by 0 or the division is done
 // TODO: place your code here
-assign done = 0;
+assign done = state_reg[0];
 // assign the quotient and remainder from the internal remainder register
 always @(*) begin
   if (state_reg == STATE_DIV_BY_ZERO) begin
     // outputs quotient and remainder as 0s when divided by 0
     // register
     // TODO: place your code here
-
+    quotient = 0;
+    remainder = 0;
   end else if (state_reg == STATE_DIV_DONE) begin
     // outputs calculated quotient and remainder from the internal remainder
     // register
     // TODO: place your code here
-    
+    quotient = remainder_reg [N-1 : 0];
+    remainder = remainder_reg[2*N : (N+1)];
   end else begin
     // outputs quotient and remainder as 0s as default
     quotient  = 0;

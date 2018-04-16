@@ -1,4 +1,4 @@
-
+`timescale 1 ns / 1 ps
 module divider_DW01_sub_1 ( A, B, CI, DIFF, CO );
   input [32:0] A;
   input [32:0] B;

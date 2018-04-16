@@ -20,7 +20,7 @@ file mkdir results; # store design
 # - target_library
 # - link_library
 ################################################################################
-set_app_var search_path ". /mnt/hgfs/PDK/NangateOpenCellLibrary_PDKv1_3_v2010_12/Front_End/Liberty/NLDM ../rtl $search_path"
+set_app_var search_path "/afs/ee.ust.hk/staff/ee/dept/public/elec516/eesm_5020_2017spring/eesm_5020/lib/NangateOpenCellLibrary_PDKv1_3_v2010_12/Front_End/Liberty/NLDM ../rtl $search_path"
 set_app_var target_library "NangateOpenCellLibrary_slow.db"
 set_app_var synthetic_library dw_foundation.sldb
 set_app_var link_library "* $target_library $synthetic_library"

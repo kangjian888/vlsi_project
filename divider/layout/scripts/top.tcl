@@ -18,7 +18,7 @@ set init_verilog "designs/divider.mapped.v"
 # MMC script: corner settings of PDK library
 set init_mmmc_file "scripts/mmc2.view"
 # LEF file import: abstract view of layout
-set init_lef_file "/mnt/hgfs/PDK/NangateOpenCellLibrary_PDKv1_3_v2010_12/Back_End/lef/NangateOpenCellLibrary.tech.lef /mnt/hgfs/PDK/NangateOpenCellLibrary_PDKv1_3_v2010_12/Back_End/lef/NangateOpenCellLibrary.macro.lef"
+set init_lef_file "/afs/ee.ust.hk/staff/ee/dept/public/elec516/eesm_5020_2017spring/eesm_5020/lib/NangateOpenCellLibrary_PDKv1_3_v2010_12/Back_End/lef/NangateOpenCellLibrary.tech.lef /afs/ee.ust.hk/staff/ee/dept/public/elec516/eesm_5020_2017spring/eesm_5020/lib/NangateOpenCellLibrary_PDKv1_3_v2010_12/Back_End/lef/NangateOpenCellLibrary.macro.lef"
 # Power and ground net name
 set init_pwr_net VDD
 set init_gnd_net VSS
@@ -214,5 +214,5 @@ saveNetlist results/divider.routed.v
 
 # *.gds: GDS file
 streamOut results/divider.gds -mapFile streamOut.map \
-          -merge {/mnt/hgfs/PDK/NangateOpenCellLibrary_PDKv1_3_v2010_12/Back_End/gds/NangateOpenCellLibrary.gds} \
+          -merge {/afs/ee.ust.hk/staff/ee/dept/public/elec516/eesm_5020_2017spring/eesm_5020/lib/NangateOpenCellLibrary_PDKv1_3_v2010_12/Back_End/gds/NangateOpenCellLibrary.gds} \
           -stripes 1 -units 2000 -mode ALL
